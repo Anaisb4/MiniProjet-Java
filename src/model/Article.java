@@ -1,6 +1,6 @@
 package model;
 
-public abstract class Article {
+public abstract class Article{
 
     private String reference;
     private String marque;
@@ -11,7 +11,7 @@ public abstract class Article {
     public Article(String reference, String marque, String modele, double prixJourLoc, int nbStock) {
         this.reference = reference;
         this.marque = marque;
-        this.modele = marque;
+        this.modele = modele;
         this.prixJourLoc = prixJourLoc;
         this.nbStock = nbStock;
     }

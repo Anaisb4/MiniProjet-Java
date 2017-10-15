@@ -1,5 +1,9 @@
 package model;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -12,6 +16,9 @@ public class Magasin {
     private LinkedList<Client> listeClients;
     private HashMap<Client, LinkedList<Location>> liste_locations;
     private LinkedList<Article> liste_article;
+
+
+    //Constructeurs
 
     public Magasin(LinkedList<Client> listeClients, HashMap<Client, LinkedList<Location>> liste_locations, LinkedList<Article> liste_article){
         this.listeClients = listeClients;
@@ -31,10 +38,48 @@ public class Magasin {
         this.liste_article=new LinkedList<Article>();
     }
 
+    //Getters and Setters
+
+    public LinkedList<Client> getListeClients() {
+        return listeClients;
+    }
+
+    public void setListeClients(LinkedList<Client> listeClients) {
+        this.listeClients = listeClients;
+    }
+
+    public HashMap<Client, LinkedList<Location>> getListe_locations() {
+        return liste_locations;
+    }
+
+    public void setListe_locations(HashMap<Client, LinkedList<Location>> liste_locations) {
+        this.liste_locations = liste_locations;
+    }
+
+    public LinkedList<Article> getListe_article() {
+        return liste_article;
+    }
+
+    public void setListe_article(LinkedList<Article> liste_article) {
+        this.liste_article = liste_article;
+    }
+
+
+    //Méthodes de la classe
+
+    public void ajouterArticle(Article article){ this.liste_article.add(article); }
+
+    public void ajouterClient(Client client){ this.listeClients.add(client); }
+
     public LinkedList<Location> getLocClient(Client client){
-        if(this.liste_locations.containsKey(client)){
-            return this.liste_locations.get(client);
+        if(this.listeClients.contains(client)){
+            if(this.liste_locations.containsKey(client)){
+                return this.liste_locations.get(client);
+            }
+        } else {
+            System.out.println("Le client n'existe pas.");
         }
+
         return new LinkedList<Location>();
     }
 
@@ -43,13 +88,27 @@ public class Magasin {
     }
 
     public boolean louerArticle(Client client, HashMap<Article, Integer> listeArt, Date dateDeb, Date dateFin){
+        //Si le client n'existe pas encore dans la base de données on l'ajoute
+        if(!this.listeClients.contains(client)){
+            System.out.println("Le client n'existait pas, il est donc ajouté à la base de données.");
+            this.ajouterClient(client);
+        }
+
         for(Map.Entry<Article, Integer> liste : listeArt.entrySet()) {
             Article art = liste.getKey();
             Integer nbArt = liste.getValue();
-            if(getDisponibilite(art)>nbArt){
+            //on vérifie que l'article existe dans le magasin
+            if(!this.liste_article.contains(art)){
+                System.out.println("Impossible de louer l'article puisqu'il n'existe pas dans le magasin.");
+                return false;
+            }
+            //On vérifie qu'il y a assez de quantité disponible
+            if(nbArt>getDisponibilite(art)){
+                System.out.println("Impossible de louer l'article puisqu'il n'y a pas assez de stock (reste "+getDisponibilite(art)+").");
                 return false;
             }
         }
+        //On créer la location
         Location newLocation = new Location(true, listeArt, dateDeb, dateFin, client);
         LinkedList<Location> newLocCl = this.getLocClient(client);
         newLocCl.push(newLocation);
@@ -57,14 +116,65 @@ public class Magasin {
         return true;
     }
 
-    public void restituerArticle(Location loc){
-        loc.rendreMateriel();
+    public void restituerLocation(Client client, Location loc){
+        if(this.liste_locations.containsKey(client)) {
+            LinkedList<Location> listeLoc = this.getLocClient(client);
+            if(listeLoc.contains(loc)){
+                loc.rendreMateriel();
+                enregistrerRestitution(loc);
+            } else {
+                System.out.println("La location n'existe pas.");
+            }
+        } else {System.out.println("Ce client ne possède aucune location.");}
     }
 
-    public boolean enregistrerMois(int mois, int annee){
-        if(mois>=1 && mois <=12){
-            //On recherche dans toutes les locations celle ayant une date de fin dont le mois et l'année correspondent
+    /**
+     * Enregistrer la restitution d'un article dans le fichier mensuelle de location
+     * Si le fichier mensuelle à déjà précédemment été créer on écris dans le même fichier
+     * Sinon on créer un nouveau fichier et on écris dans celui-ci
+     * @param loc La location qui est restituée
+     */
+    public void enregistrerRestitution(Location loc){
+        //Enregistrement dans le fichier du mois de restitution la location
+        //On recherche si le fichier du mois à été crée si oui on écris dedans sinon on en créer un nouveau
+        int moisRest = loc.getDateFin().getMonth();
+        int anneeRest = loc.getDateFin().getYear();
+        String file_path = "data/"+anneeRest+moisRest+".txt";
+        File fichier = new File(file_path);
+        //ObjectOutputStream file_write;
+        //Si le fichier n'existe pas on en créer un nouveau
+        if(!fichier.exists()){
+            try {
+                fichier.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Ce fichier existe déjà.\n");
+                e.printStackTrace();
+            }
         }
-        return false;
+
+        try {
+            //Récupération des anciennes locations
+            DataInputStream read_file = new DataInputStream(new FileInputStream(file_path));
+            LinkedList<String> lines = new LinkedList<>();
+            while(read_file.available()>0){
+                lines.add(read_file.readUTF());
+            }
+            read_file.close();
+
+            //Ecriture de la nouvelle location
+            DataOutputStream write_file = new DataOutputStream(new FileOutputStream(file_path));
+            lines.add(loc.toString()+"\n");
+            for (String line: lines) {
+                write_file.writeUTF(line);
+            }
+            write_file.close();
+
+
+        } catch (IOException e){
+            System.out.println("Ce fichier n'existe pas ou il est impossible d'écrire à l'intérieur.\n");
+            e.printStackTrace();
+        }
+
+
     }
 }

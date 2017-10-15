@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Classe modele.model.Location
  */
-public class Location {
+public class Location{
 
     private boolean enLocation;
     private HashMap<Article, Integer> listeArticle;
@@ -40,14 +40,14 @@ public class Location {
      *
      * @param enLocation   statut de la location
      * @param listeArticle liste des articles inclus dans la location
-     * @param dateDebut    date d edébut de location
+     * @param dateDebut    date de début de location
      * @param dateFin      date de fin de location
      * @param client       client concerné par la location
      */
     public Location(boolean enLocation, HashMap<Article, Integer> listeArticle, Date dateDebut, Date dateFin, Client client) {
         this.enLocation = enLocation;
         this.listeArticle = new HashMap<Article, Integer>();
-        listeArticle.putAll(listeArticle);
+        this.listeArticle.putAll(listeArticle);
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.client = client;
@@ -74,7 +74,7 @@ public class Location {
             montantTotal = article.getPrixJourLoc() * nbArticle * nbJours;
 
         }
-        return montant;
+        return montantTotal;
     }
 
     /**
@@ -212,5 +212,26 @@ public class Location {
      */
     public void setMontant(double montant) {
         this.montant = montant;
+    }
+
+    /**
+     * Affiche les valeurs de l'objet Location en cours
+     * @return Retourne une chaîne représentant l'objet location
+     */
+    @Override
+    public String toString() {
+        String result = this.getClient().getNom()+" "+this.getClient().getPrenom() + "("+ this.getClient().getNumClient() +") a loué ";
+
+        for(Map.Entry<Article,Integer> article : listeArticle.entrySet()){
+            String nomArticle = article.getKey().getMarque().toUpperCase()+" "+article.getKey().getModele();
+            int qte = article.getValue();
+            result+= qte + " " + nomArticle;
+        }
+
+        result+=" du " + dateDebut.getDate() + "/"+ dateDebut.getMonth() + "/" + dateDebut.getYear();
+        result+=" au "+ dateFin.getDate() + "/"+ dateFin.getMonth() + "/" + dateFin.getYear();
+        result+=" au prix de "+this.montant+"€";
+
+        return result;
     }
 }

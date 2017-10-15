@@ -5,10 +5,10 @@ public class Client {
     private String numClient;
     private String nom;
     private String prenom;
-    private int telephone;
+    private String telephone;
     private String eMail;
 
-    public Client(String numClient, String nom, String prenom, int telephone, String eMail) {
+    public Client(String numClient, String nom, String prenom, String telephone, String eMail) {
         this.numClient = numClient;
         this.nom = nom;
         this.prenom = prenom;
@@ -40,11 +40,11 @@ public class Client {
         this.prenom = prenom;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
@@ -54,5 +54,16 @@ public class Client {
 
     public void seteMail(String eMail) {
         this.eMail = eMail;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "numClient='" + numClient + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", eMail='" + eMail + '\'' +
+                '}';
     }
 }
