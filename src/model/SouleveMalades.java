@@ -1,3 +1,5 @@
+package model;
+
 public class SouleveMalades extends Article {
 
     private double capacite;

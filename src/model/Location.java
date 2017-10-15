@@ -1,10 +1,12 @@
+package model;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Classe modele.Location
+ * Classe modele.model.Location
  */
 public class Location {
 
@@ -16,7 +18,7 @@ public class Location {
     private double montant;
 
     /**
-     * Constructeur de la classe modele.Location mettant le statut "en location" à true par défaut
+     * Constructeur de la classe modele.model.Location mettant le statut "en location" à true par défaut
      *
      * @param listeArticle liste des articles inclus dans la location
      * @param dateDebut    date d edébut de location
@@ -34,7 +36,7 @@ public class Location {
     }
 
     /**
-     * Constructeur de la classe modele.Location
+     * Constructeur de la classe modele.model.Location
      *
      * @param enLocation   statut de la location
      * @param listeArticle liste des articles inclus dans la location

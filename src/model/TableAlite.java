@@ -1,3 +1,5 @@
+package model;
+
 public class TableAlite extends MobilierChambre {
 
     private boolean isAjustable;
