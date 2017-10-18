@@ -225,10 +225,10 @@ public class Location{
         for(Map.Entry<Article,Integer> article : listeArticle.entrySet()){
             String nomArticle = article.getKey().getMarque().toUpperCase()+" "+article.getKey().getModele();
             int qte = article.getValue();
-            result+= qte + " " + nomArticle;
+            result+= qte + " " + nomArticle+" ";
         }
 
-        result+=" du " + dateDebut.getDate() + "/"+ dateDebut.getMonth() + "/" + dateDebut.getYear();
+        result+="du " + dateDebut.getDate() + "/"+ dateDebut.getMonth() + "/" + dateDebut.getYear();
         result+=" au "+ dateFin.getDate() + "/"+ dateFin.getMonth() + "/" + dateFin.getYear();
         result+=" au prix de "+this.montant+"€";
 

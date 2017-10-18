@@ -72,4 +72,15 @@ public abstract class Article{
     public void setNbStock(int nbStock) {
         this.nbStock = nbStock;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "reference='" + reference + '\'' +
+                ", marque='" + marque + '\'' +
+                ", modele='" + modele + '\'' +
+                ", prixJourLoc=" + prixJourLoc +
+                ", nbStock=" + nbStock +
+                '}';
+    }
 }
