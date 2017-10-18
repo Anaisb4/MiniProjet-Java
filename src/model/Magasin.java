@@ -65,7 +65,7 @@ public class Magasin {
 
 
     //Méthodes de la classe
-
+//
     public void ajouterArticle(Article article) {
         this.liste_article.add(article);
     }
