@@ -19,7 +19,9 @@
         <children>
           <component id="67232" class="javax.swing.JList" binding="clientJList">
             <constraints/>
-            <properties/>
+            <properties>
+              <selectionMode value="0"/>
+            </properties>
           </component>
         </children>
       </scrollpane>

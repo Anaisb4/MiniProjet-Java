@@ -12,7 +12,7 @@ public class Main extends JFrame{
     private JButton locationsButton;
     private JButton clientsButton;
     private JButton stockButton;
-    protected Magasin magasin;
+    protected static Magasin magasin;
 
     public Main(Magasin magasin){
 
@@ -28,7 +28,7 @@ public class Main extends JFrame{
         locationsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame locationsList = new LocationsList(magasin);
+                JFrame locationsList = new LocationsList();
                 setVisible(false);
                 locationsList.setVisible(true);
             }
@@ -37,7 +37,7 @@ public class Main extends JFrame{
         clientsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame clientList = new ClientsList(magasin);
+                JFrame clientList = new ClientsList();
                 setVisible(false);
                 clientList.setVisible(true);
             }
@@ -46,7 +46,7 @@ public class Main extends JFrame{
         stockButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame stockList = new StockList(magasin);
+                JFrame stockList = new StockList();
                 setVisible(false);
                 stockList.setVisible(true);
             }

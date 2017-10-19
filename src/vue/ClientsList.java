@@ -19,20 +19,20 @@ public class ClientsList extends JFrame {
     private JScrollPane pane;
     private JPanel buttonPane;
 
-    private JList clientJList;
-    private LinkedList<Client> clientList;
+    protected JList clientJList;
+    private LinkedList<Client> clientsList;
     private Magasin magasin;
     String space = "&nbsp;&nbsp;&nbsp;";
 
-    public ClientsList(Magasin magasin) {
+    public ClientsList() {
 
         super("Clients List");
         setContentPane(clientsListPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        this.magasin = magasin;
-        this.clientList = this.magasin.getListeClients();
-        String[] clientList = prepareClientList(this.clientList);
+        this.magasin = Main.magasin;
+        this.clientsList = this.magasin.getListeClients();
+        String[] clientList = prepareClientList(this.clientsList);
         this.clientJList = new JList(clientList);
         ListCellRenderer renderer = new ClientCellRenderer();
         this.clientJList.setCellRenderer(renderer);
@@ -45,8 +45,9 @@ public class ClientsList extends JFrame {
         nouveauButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
+                JFrame createClient = new CreateClient();
+                setVisible(false);
+                createClient.setVisible(true);
             }
         });
 
@@ -54,7 +55,11 @@ public class ClientsList extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                Client clientTmp = clientsList.get(clientJList.getSelectedIndex());
 
+                JFrame main = new AfficheClient(clientTmp);
+                setVisible(false);
+                main.setVisible(true);
             }
         });
 

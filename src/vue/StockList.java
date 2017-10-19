@@ -25,13 +25,13 @@ public class StockList extends JFrame {
     private Magasin magasin;
     String space = "&nbsp;&nbsp;&nbsp;";
 
-    public StockList(Magasin magasin) {
+    public StockList() {
 
         super("Stock List");
         setContentPane(stockListPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        this.magasin = magasin;
+        this.magasin = Main.magasin;
         this.stockList = this.magasin.getListe_article();
         String[] stockSList = prepareStockList(this.stockList);
         this.stockJList = new JList(stockSList);

@@ -23,13 +23,13 @@ public class LocationsList extends JFrame {
     private Magasin magasin;
     String space = "&nbsp;&nbsp;&nbsp;";
 
-    public LocationsList(Magasin magasin) {
+    public LocationsList() {
 
         super("Locations List");
         setContentPane(locationsListPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        this.magasin = magasin;
+        this.magasin = Main.magasin;
         this.locationsList = this.magasin.getLocations();
         String[] locationsList = prepareLocationsList(this.locationsList);
         this.locationsJList = new JList(locationsList);
