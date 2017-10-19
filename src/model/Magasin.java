@@ -38,6 +38,16 @@ public class Magasin {
     }
 
     //Getters and Setters
+    public LinkedList<Location> getLocations()
+    {
+        LinkedList<Location> listLocations = new LinkedList<Location>();
+
+        for (Map.Entry<Client, LinkedList<Location>> entree : this.liste_locations.entrySet()) {
+            listLocations.addAll(entree.getValue());
+        }
+
+        return listLocations;
+    }
 
     public LinkedList<Client> getListeClients() {
         return listeClients;
@@ -124,7 +134,7 @@ public class Magasin {
         }
 
         //On créer la location
-        Location newLocation = new Location(true, listeArt, dateDeb, dateFin, client);
+        Location newLocation = new Location(String.valueOf(this.getLocations().size()+1),true, listeArt, dateDeb, dateFin, client);
         LinkedList<Location> newLocCl = this.getLocClient(client);
         newLocCl.push(newLocation);
         this.liste_locations.put(client, newLocCl);

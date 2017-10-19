@@ -16,6 +16,7 @@ public class Location{
     private Date dateFin;
     private Client client;
     private double montant;
+    private String reference;
 
     /**
      * Constructeur de la classe modele.model.Location mettant le statut "en location" à true par défaut
@@ -25,7 +26,8 @@ public class Location{
      * @param dateFin      date de fin de location
      * @param client       client concerné par la location
      */
-    public Location(HashMap<Article, Integer> listeArticle, Date dateDebut, Date dateFin, Client client) {
+    public Location(String reference,HashMap<Article, Integer> listeArticle, Date dateDebut, Date dateFin, Client client) {
+        this.reference = reference;
         this.enLocation = true;
         this.listeArticle = new HashMap<Article, Integer>();
         listeArticle.putAll(listeArticle);
@@ -44,7 +46,8 @@ public class Location{
      * @param dateFin      date de fin de location
      * @param client       client concerné par la location
      */
-    public Location(boolean enLocation, HashMap<Article, Integer> listeArticle, Date dateDebut, Date dateFin, Client client) {
+    public Location(String reference, boolean enLocation, HashMap<Article, Integer> listeArticle, Date dateDebut, Date dateFin, Client client) {
+        this.reference = reference;
         this.enLocation = enLocation;
         this.listeArticle = new HashMap<Article, Integer>();
         this.listeArticle.putAll(listeArticle);
@@ -212,6 +215,14 @@ public class Location{
      */
     public void setMontant(double montant) {
         this.montant = montant;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     /**

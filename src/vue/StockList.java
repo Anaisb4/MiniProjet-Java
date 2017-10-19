@@ -1,17 +1,18 @@
 package vue;
 
 import model.Magasin;
-import model.Client;
+import model.Article;
 
 import java.awt.*;
 import java.util.LinkedList;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ClientsList extends JFrame {
-    private JPanel clientsListPanel;
+public class StockList extends JFrame {
+    private JPanel stockListPanel;
 
     private JButton nouveauButton;
     private JButton consulterButton;
@@ -19,25 +20,25 @@ public class ClientsList extends JFrame {
     private JScrollPane pane;
     private JPanel buttonPane;
 
-    private JList clientJList;
-    private LinkedList<Client> clientList;
+    private JList stockJList;
+    private LinkedList<Article> stockList;
     private Magasin magasin;
     String space = "&nbsp;&nbsp;&nbsp;";
 
-    public ClientsList(Magasin magasin) {
+    public StockList(Magasin magasin) {
 
-        super("Clients List");
-        setContentPane(clientsListPanel);
+        super("Stock List");
+        setContentPane(stockListPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         this.magasin = magasin;
-        this.clientList = this.magasin.getListeClients();
-        String[] clientList = prepareClientList(this.clientList);
-        this.clientJList = new JList(clientList);
-        ListCellRenderer renderer = new ClientCellRenderer();
-        this.clientJList.setCellRenderer(renderer);
-        this.clientJList.setVisibleRowCount(5);
-        this.pane = new JScrollPane(this.clientJList);
+        this.stockList = this.magasin.getListe_article();
+        String[] stockSList = prepareStockList(this.stockList);
+        this.stockJList = new JList(stockSList);
+        ListCellRenderer renderer = new StockCellRenderer();
+        this.stockJList.setCellRenderer(renderer);
+        this.stockJList.setVisibleRowCount(5);
+        this.pane = new JScrollPane(this.stockJList);
         add(pane, BorderLayout.CENTER);
         add(buttonPane, BorderLayout.SOUTH);
         pack();
@@ -46,14 +47,12 @@ public class ClientsList extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
             }
         });
 
         consulterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
 
             }
         });
@@ -68,32 +67,32 @@ public class ClientsList extends JFrame {
         });
     }
 
-    public String[] prepareClientList(LinkedList<Client> listeClients) {
-        String clients[] = new String[listeClients.size()];
-        Client clientTmp;
+    public String[] prepareStockList(LinkedList<Article> listeStock) {
+        String stocks[] = new String[listeStock.size()];
+        Article stockTmp;
         StringBuilder strBuilder;
 
-        for (int cpt = 0; cpt < listeClients.size(); cpt++) {
+        for (int cpt = 0; cpt < listeStock.size(); cpt++) {
             strBuilder = new StringBuilder("");
-            clientTmp = listeClients.get(cpt);
+            stockTmp = listeStock.get(cpt);
 
             strBuilder.append("<html><br>");
-            strBuilder.append("Client n°: " + clientTmp.getNumClient() + " " + this.space + "  " + clientTmp.getNom() + " " + clientTmp.getPrenom());
+            strBuilder.append("Article n°: " + stockTmp.getReference() + " " + this.space + "  " + stockTmp.getMarque() + this.space + stockTmp.getModele());
             strBuilder.append("<br>");
-            strBuilder.append("Tel: " + clientTmp.getTelephone() + " " + this.space + "  Mail: " + clientTmp.geteMail());
+            strBuilder.append("Tel: " + stockTmp.getPrixJourLoc() + " € / Jours de location");
             strBuilder.append("<br><br></html>");
-            clients[cpt] = strBuilder.toString();
+            stocks[cpt] = strBuilder.toString();
         }
 
-        return clients;
+        return stocks;
     }
 }
 
-class ClientCellRenderer extends JLabel implements ListCellRenderer {
+class StockCellRenderer extends JLabel implements ListCellRenderer {
 
     private static final Color HIGHLIGHT_COLOR = new Color(0, 0, 128);
 
-    public ClientCellRenderer() {
+    public StockCellRenderer() {
         setOpaque(true);
         setIconTextGap(12);
     }
@@ -101,7 +100,6 @@ class ClientCellRenderer extends JLabel implements ListCellRenderer {
     public Component getListCellRendererComponent(JList list, Object value, int index,
                                                   boolean isSelected, boolean cellHasFocus) {
         String entry = (String) value;
-
         setText(entry);
         if (isSelected) {
             setBackground(HIGHLIGHT_COLOR);

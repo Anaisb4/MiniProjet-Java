@@ -1,7 +1,7 @@
 package vue;
 
 import model.Magasin;
-import model.Client;
+import model.Location;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -10,34 +10,33 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ClientsList extends JFrame {
-    private JPanel clientsListPanel;
-
+public class LocationsList extends JFrame {
+    private JPanel locationsListPanel;
     private JButton nouveauButton;
     private JButton consulterButton;
     private JButton retourButton;
     private JScrollPane pane;
     private JPanel buttonPane;
 
-    private JList clientJList;
-    private LinkedList<Client> clientList;
+    private JList locationsJList;
+    private LinkedList<Location> locationsList;
     private Magasin magasin;
     String space = "&nbsp;&nbsp;&nbsp;";
 
-    public ClientsList(Magasin magasin) {
+    public LocationsList(Magasin magasin) {
 
-        super("Clients List");
-        setContentPane(clientsListPanel);
+        super("Locations List");
+        setContentPane(locationsListPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         this.magasin = magasin;
-        this.clientList = this.magasin.getListeClients();
-        String[] clientList = prepareClientList(this.clientList);
-        this.clientJList = new JList(clientList);
-        ListCellRenderer renderer = new ClientCellRenderer();
-        this.clientJList.setCellRenderer(renderer);
-        this.clientJList.setVisibleRowCount(5);
-        this.pane = new JScrollPane(this.clientJList);
+        this.locationsList = this.magasin.getLocations();
+        String[] locationsList = prepareLocationsList(this.locationsList);
+        this.locationsJList = new JList(locationsList);
+        ListCellRenderer renderer = new LocationsCellRenderer();
+        this.locationsJList.setCellRenderer(renderer);
+        this.locationsJList.setVisibleRowCount(5);
+        this.pane = new JScrollPane(this.locationsJList);
         add(pane, BorderLayout.CENTER);
         add(buttonPane, BorderLayout.SOUTH);
         pack();
@@ -68,32 +67,32 @@ public class ClientsList extends JFrame {
         });
     }
 
-    public String[] prepareClientList(LinkedList<Client> listeClients) {
-        String clients[] = new String[listeClients.size()];
-        Client clientTmp;
+    public String[] prepareLocationsList(LinkedList<Location> listeLocations) {
+        String locations[] = new String[listeLocations.size()];
+        Location locationTmp;
         StringBuilder strBuilder;
 
-        for (int cpt = 0; cpt < listeClients.size(); cpt++) {
+        for (int cpt = 0; cpt < listeLocations.size(); cpt++) {
             strBuilder = new StringBuilder("");
-            clientTmp = listeClients.get(cpt);
+            locationTmp = listeLocations.get(cpt);
 
             strBuilder.append("<html><br>");
-            strBuilder.append("Client n°: " + clientTmp.getNumClient() + " " + this.space + "  " + clientTmp.getNom() + " " + clientTmp.getPrenom());
+            strBuilder.append("Référence n°: " + locationTmp.getReference() + " " + this.space + "  " + locationTmp.getClient().getNom() + " " + locationTmp.getClient().getPrenom()+ this.space + "  Montant: " + locationTmp.getMontant());
             strBuilder.append("<br>");
-            strBuilder.append("Tel: " + clientTmp.getTelephone() + " " + this.space + "  Mail: " + clientTmp.geteMail());
+            strBuilder.append("Date début: " + locationTmp.getDateDebut() + " " + this.space + "  Date fin: " + locationTmp.getDateFin() );
             strBuilder.append("<br><br></html>");
-            clients[cpt] = strBuilder.toString();
+            locations[cpt] = strBuilder.toString();
         }
 
-        return clients;
+        return locations;
     }
 }
 
-class ClientCellRenderer extends JLabel implements ListCellRenderer {
+class LocationsCellRenderer extends JLabel implements ListCellRenderer {
 
     private static final Color HIGHLIGHT_COLOR = new Color(0, 0, 128);
 
-    public ClientCellRenderer() {
+    public LocationsCellRenderer() {
         setOpaque(true);
         setIconTextGap(12);
     }

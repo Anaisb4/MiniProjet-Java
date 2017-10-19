@@ -26,6 +26,7 @@ public class Application{
         Client c2 = new Client("002","Besson","Anais","0245785452","abesson@outlook.fr");
         System.out.println(c1.toString());
         System.out.println(c2.toString());
+
         magasin.ajouterClient(c1);
         magasin.ajouterClient(c2);
 
@@ -34,6 +35,12 @@ public class Application{
         listeArt.put(lit,3);
         listeArt.put(fauteuil,1);
         magasin.louerArticle(c1,listeArt,new Date(2017,10,10), new Date(2017,10,12));
+
+        System.out.println("### Location par c2 de trois matelas et d'un fauteuil ###");
+        HashMap<Article,Integer> listeArt2 = new HashMap<Article,Integer>();
+        listeArt2.put(matelas,3);
+        listeArt2.put(fauteuil,1);
+        magasin.louerArticle(c2,listeArt2,new Date(2017,10,12), new Date(2017,12,14));
 
         System.out.println("### Location par c2 d'un lit médicalisé (génère une erreur) et d'un matelas ###");
         HashMap<Article,Integer> listeArtC2 = new HashMap<Article, Integer>();
