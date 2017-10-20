@@ -12,6 +12,10 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ * Created by Anais BESSON and Victor FAVREAU on 18/10/2017.
+ */
 public class LocationsList extends JFrame {
     private JPanel locationsListPanel;
     private JButton nouveauButton;

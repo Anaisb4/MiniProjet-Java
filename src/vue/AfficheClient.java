@@ -1,6 +1,5 @@
 package vue;
 
-import model.Article;
 import model.Client;
 import model.Location;
 
@@ -9,8 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.Map;
 
+
+/**
+ * Created by Anais BESSON and Victor FAVREAU on 18/10/2017.
+ */
 public class AfficheClient extends JFrame{
     private JPanel afficheClientPanel;
     private JButton retourButton;

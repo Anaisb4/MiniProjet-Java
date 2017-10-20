@@ -6,8 +6,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+
 /**
- * Created by Anais on 19/09/2017.
+ * Created by Anais BESSON and Victor FAVREAU on 18/10/2017.
  */
 public class Magasin {
     private LinkedList<Client> listeClients;
@@ -17,18 +18,31 @@ public class Magasin {
 
     //Constructeurs
 
+    /**
+     * Constructeur de la classe magasin
+     * @param listeClients liste des clients
+     * @param liste_locations liste de slocations
+     * @param liste_article liste des articles
+     */
     public Magasin(LinkedList<Client> listeClients, HashMap<Client, LinkedList<Location>> liste_locations, LinkedList<Article> liste_article) {
         this.listeClients = listeClients;
         this.liste_locations = liste_locations;
         this.liste_article = liste_article;
     }
 
+    /**
+     * Constructeur de la classe magasin
+     * @param liste_article liste d'articles
+     */
     public Magasin(LinkedList<Article> liste_article) {
         this.liste_article = liste_article;
         this.listeClients = new LinkedList<Client>();
         this.liste_locations = new HashMap<Client, LinkedList<Location>>();
     }
 
+    /**
+     * Constructeur de la classe magasin
+     */
     public Magasin() {
         this.listeClients = new LinkedList<Client>();
         this.liste_locations = new HashMap<Client, LinkedList<Location>>();
@@ -36,6 +50,11 @@ public class Magasin {
     }
 
     //Getters and Setters
+
+    /**
+     * Retourne la liste des locations
+     * @return liste des locations
+     */
     public LinkedList<Location> getLocations()
     {
         LinkedList<Location> listLocations = new LinkedList<Location>();
@@ -53,41 +72,78 @@ public class Magasin {
         return listLocations;
     }
 
+    /**
+     * Retourne la liste des clients
+     * @return liste des clients
+     */
     public LinkedList<Client> getListeClients() {
         return listeClients;
     }
 
+    /**
+     * Modifie la liste des clients
+     * @param listeClients nouvelle liste des clients
+     */
     public void setListeClients(LinkedList<Client> listeClients) {
         this.listeClients = listeClients;
     }
 
+    /**
+     * Retourne la liste des locations
+     * @return liste des locations
+     */
     public HashMap<Client, LinkedList<Location>> getListe_locations() {
         return liste_locations;
     }
 
+    /**
+     * Modifie la liste des locations
+     * @param liste_locations liste des locations
+     */
     public void setListe_locations(HashMap<Client, LinkedList<Location>> liste_locations) {
         this.liste_locations = liste_locations;
     }
 
+    /**
+     * Retourne la liste des articles
+     * @return liste des articles
+     */
     public LinkedList<Article> getListe_article() {
         return liste_article;
     }
 
+    /**
+     * Modifie la liste des articles
+     * @param liste_article liste des articles
+     */
     public void setListe_article(LinkedList<Article> liste_article) {
         this.liste_article = liste_article;
     }
 
 
     //Méthodes de la classe
-
+    /**
+     * Ajoute un article à la liste des articles
+     * @param article article à ajouter
+     */
     public void ajouterArticle(Article article) {
         this.liste_article.add(article);
     }
 
+    /**
+     * Ajoute un client à la liste des clients
+     * @param client Client à ajouter
+     */
     public void ajouterClient(Client client) {
         this.listeClients.add(client);
     }
 
+    /**
+     * Récupère la liste des locations d'un client
+     * @param client client concerné
+     * @param all Toutes les locations ou juste les locations actives
+     * @return liste des locations du client
+     */
     public LinkedList<Location> getLocClient(Client client, boolean all) {
         LinkedList<Location> listeLocEnC = new LinkedList<Location>();
         if (this.listeClients.contains(client)) {
@@ -115,11 +171,23 @@ public class Magasin {
     }
 
 
-
+    /**
+     * Verifie la disponibilité d'un article
+     * @param art Article à vérifier
+     * @return nombre d'articles disponibles
+     */
     private int getDisponibilite(Article art) {
         return art.getNbStock();
     }
 
+    /**
+     * Loue un article
+     * @param client client concerné
+     * @param listeArt liste d'articles
+     * @param dateDeb date de début d ela location
+     * @param dateFin date de la fin de location
+     * @return true: ajout réussi; false: erreur
+     */
     public boolean louerArticle(Client client, HashMap<Article, Integer> listeArt, Date dateDeb, Date dateFin) {
         //Si le client n'existe pas encore dans la base de données on l'ajoute
         if (!this.listeClients.contains(client)) {
@@ -160,6 +228,11 @@ public class Magasin {
         return true;
     }
 
+    /**
+     * Restitue une location
+     * @param client client concerné
+     * @param loc location concerné
+     */
     public void restituerLocation(Client client, Location loc) {
         if (this.liste_locations.containsKey(client)) {
             LinkedList<Location> listeLoc = this.getLocClient(client, false);
@@ -222,6 +295,12 @@ public class Magasin {
         }
     }
 
+    /**
+     * Calcule pour un mois donné la recette totale.
+     * @param mois mois concerné
+     * @param annee année concernée
+     * @return recette totale pour le mois donné
+     */
     public double calcMensuel(int mois, int annee){
         String file_path = "data/"+annee+""+mois+".txt";
         File fichier = new File(file_path);

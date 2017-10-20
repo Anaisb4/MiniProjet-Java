@@ -6,8 +6,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ * Created by Anais BESSON and Victor FAVREAU on 18/10/2017.
+ */
 public class Main extends JFrame{
-   // private JButton clickMeButton;
     private JPanel mainPanel;
     private JButton locationsButton;
     private JButton clientsButton;
@@ -17,7 +20,6 @@ public class Main extends JFrame{
     public Main(Magasin magasin){
 
         this.magasin = magasin;
-
         this.setTitle("Magasin");
         this.setLocationRelativeTo(null);
         this.setResizable(false);

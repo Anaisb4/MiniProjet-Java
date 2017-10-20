@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact name="MiniProjet-Java:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MiniProjet_Java_jar</output-path>
+    <root id="root">
+      <element id="archive" name="MiniProjet-Java.jar">
+        <element id="module-output" name="MiniProjet-Java" />
+      </element>
+      <element id="library" level="project" name="quaqua" />
+      <element id="library" level="module" name="quaqua.jar" module-name="MiniProjet-Java" />
+    </root>
+  </artifact>
+</component>

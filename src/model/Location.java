@@ -5,8 +5,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
- * Classe modele.model.Location
+ * Created by Anais BESSON and Victor FAVREAU on 18/10/2017.
  */
 public class Location{
 
@@ -21,6 +22,7 @@ public class Location{
     /**
      * Constructeur de la classe modele.model.Location mettant le statut "en location" à true par défaut
      *
+     * @param reference    reference de la location
      * @param listeArticle liste des articles inclus dans la location
      * @param dateDebut    date d edébut de location
      * @param dateFin      date de fin de location
@@ -40,6 +42,7 @@ public class Location{
     /**
      * Constructeur de la classe modele.model.Location
      *
+     * @param reference    reference de la location
      * @param enLocation   statut de la location
      * @param listeArticle liste des articles inclus dans la location
      * @param dateDebut    date de début de location
@@ -66,7 +69,7 @@ public class Location{
 
         double montantTotal = 0;
 
-        double nbJours = calculerDuréeLoc(this.dateDebut, this.dateFin);
+        double nbJours = calculerDureeLoc(this.dateDebut, this.dateFin);
 
         for (Map.Entry<Article, Integer> entree : this.listeArticle.entrySet()) {
 
@@ -86,7 +89,7 @@ public class Location{
      * @param dateFin   date de la fin de location
      * @return le nombre de jours séparant les deux dates
      */
-    public double calculerDuréeLoc(Date dateDebut, Date dateFin) {
+    public double calculerDureeLoc(Date dateDebut, Date dateFin) {
         double result = Double.POSITIVE_INFINITY;
         if (dateDebut != null && dateFin != null) {
 
@@ -149,7 +152,7 @@ public class Location{
     /**
      * Retourne la date de début de location
      *
-     * @return
+     * @return la date de début de location
      */
     public Date getDateDebut() {
         return dateDebut;

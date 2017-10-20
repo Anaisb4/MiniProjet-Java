@@ -14,6 +14,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+
+/**
+ * Created by Anais BESSON and Victor FAVREAU on 18/10/2017.
+ */
 public class CreateLocation extends JFrame{
 
     private JLabel labelTelephone;

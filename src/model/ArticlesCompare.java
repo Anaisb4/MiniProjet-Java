@@ -2,8 +2,9 @@ package model;
 
 import java.util.Comparator;
 
+
 /**
- * Created by Anais on 18/10/2017.
+ * Created by Anais BESSON and Victor FAVREAU on 18/10/2017.
  */
 public class ArticlesCompare {
 
