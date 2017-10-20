@@ -43,7 +43,13 @@ public class Magasin {
         LinkedList<Location> listLocations = new LinkedList<Location>();
 
         for (Map.Entry<Client, LinkedList<Location>> entree : this.liste_locations.entrySet()) {
-            listLocations.addAll(entree.getValue());
+
+            LinkedList<Location> locaList = entree.getValue();
+
+            for(Location location:locaList) {
+                listLocations.add(location);
+            }
+
         }
 
         return listLocations;
@@ -84,14 +90,23 @@ public class Magasin {
         this.listeClients.add(client);
     }
 
-    public LinkedList<Location> getLocClient(Client client) {
+    public LinkedList<Location> getLocClient(Client client, boolean all) {
         LinkedList<Location> listeLocEnC = new LinkedList<Location>();
         if (this.listeClients.contains(client)) {
             if (this.liste_locations.containsKey(client)) {
                 for (Location loc : this.liste_locations.get(client)) {
-                    if (loc.isEnLocation() == true) {
+
+                    if(all)
+                    {
                         listeLocEnC.add(loc);
                     }
+                    else
+                    {
+                        if (loc.isEnLocation() == true) {
+                            listeLocEnC.add(loc);
+                        }
+                    }
+
                 }
             }
         } else {
@@ -100,6 +115,8 @@ public class Magasin {
 
         return listeLocEnC;
     }
+
+
 
     private int getDisponibilite(Article art) {
         return art.getNbStock();
@@ -116,17 +133,19 @@ public class Magasin {
             Article art = liste.getKey();
             Integer nbArt = liste.getValue();
             //on vérifie que l'article existe dans le magasin
+
             if (!this.liste_article.contains(art)) {
                 System.out.println("Impossible de louer l'article puisqu'il n'existe pas dans le magasin.");
                 return false;
             }
+
             //On vérifie qu'il y a assez de quantité disponible
             if (nbArt > getDisponibilite(art)) {
                 System.out.println("Impossible de louer l'article puisqu'il n'y a pas assez de stock (reste " + getDisponibilite(art) + ").");
                 return false;
             }
         }
-        //On re-parcours notre liste pour soustraire du stock ce qui va être louer
+        //On re-parcours notre liste pour soustraire du stock ce qui va être loué
         for (Map.Entry<Article, Integer> liste : listeArt.entrySet()) {
             Article art = liste.getKey();
             Integer nbArt = liste.getValue();
@@ -135,15 +154,17 @@ public class Magasin {
 
         //On créer la location
         Location newLocation = new Location(String.valueOf(this.getLocations().size()+1),true, listeArt, dateDeb, dateFin, client);
-        LinkedList<Location> newLocCl = this.getLocClient(client);
-        newLocCl.push(newLocation);
+
+        LinkedList<Location> newLocCl = this.getLocClient(client, true);
+
+        newLocCl.add(newLocation);
         this.liste_locations.put(client, newLocCl);
         return true;
     }
 
     public void restituerLocation(Client client, Location loc) {
         if (this.liste_locations.containsKey(client)) {
-            LinkedList<Location> listeLoc = this.getLocClient(client);
+            LinkedList<Location> listeLoc = this.getLocClient(client, false);
             if (listeLoc.contains(loc)) {
                 loc.rendreMateriel();
                 enregistrerRestitution(loc);

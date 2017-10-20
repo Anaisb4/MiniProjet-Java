@@ -53,7 +53,7 @@ public class CreateLocation extends JFrame{
         this.listeStock.setModel(modelList);
 
         for(Article article: articles){
-            modelList.addElement("<html>N°: " + article.getReference() + this.space + article.getModele() + this.space +article.getMarque() + "</html>");
+            modelList.addElement("<html>N°: " + article.getReference() + this.space + article.getModele() + this.space +article.getMarque() + this.space + "x1"+ this.space +"</html>");
         }
 
         for(Client client: clients)
@@ -69,7 +69,7 @@ public class CreateLocation extends JFrame{
 
                 Article article = articles.get(listeStock.getSelectedIndex());
                 int value = 1;
-                StringBuilder strBuilder = new StringBuilder("<html>");
+
 
                 if(mapArticles.containsKey(article))
                 {
@@ -83,12 +83,12 @@ public class CreateLocation extends JFrame{
                     mapArticles.put(article, value);
                 }
 
+                StringBuilder strBuilder = new StringBuilder("<html>");
+
                 for (Map.Entry<Article, Integer> liste : mapArticles.entrySet()) {
                     Article art = liste.getKey();
                     Integer nbArt = liste.getValue();
-
                     strBuilder.append("N°: " + art.getReference() + space + art.getMarque() + space + art.getModele() + space + "x" + nbArt + "<br>");
-
                 }
 
                 strBuilder.append("</html>");
@@ -111,6 +111,7 @@ public class CreateLocation extends JFrame{
                     Date dateBegF = formatter.parse(dateDeb);
                     Date dateEndF = formatter.parse(dateFin);
                     Main.magasin.louerArticle(clientTmp, mapArticles, dateBegF, dateEndF);
+
                     JFrame main = new Main(Main.magasin);
                     setVisible(false);
                     main.setVisible(true);

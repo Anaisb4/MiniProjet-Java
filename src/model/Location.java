@@ -1,5 +1,6 @@
 package model;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -77,7 +78,8 @@ public class Location{
             montantTotal = article.getPrixJourLoc() * nbArticle * nbJours;
 
         }
-        return montantTotal;
+
+        return (double) Math.round(montantTotal * 100) / 100;
     }
 
     /**

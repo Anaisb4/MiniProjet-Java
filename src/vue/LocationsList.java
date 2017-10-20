@@ -1,5 +1,6 @@
 package vue;
 
+import model.Article;
 import model.Magasin;
 import model.Location;
 
@@ -19,7 +20,7 @@ public class LocationsList extends JFrame {
     private JPanel buttonPane;
 
     private JList locationsJList;
-    private LinkedList<Location> locationsList;
+    private LinkedList<Location> locationsListe;
     private Magasin magasin;
     String space = "&nbsp;&nbsp;&nbsp;";
 
@@ -30,8 +31,8 @@ public class LocationsList extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         this.magasin = Main.magasin;
-        this.locationsList = Main.magasin.getLocations();
-        String[] locationsList = prepareLocationsList(this.locationsList);
+        this.locationsListe = Main.magasin.getLocations();
+        String[] locationsList = prepareLocationsList(this.locationsListe);
         this.locationsJList = new JList(locationsList);
         ListCellRenderer renderer = new LocationsCellRenderer();
         this.locationsJList.setCellRenderer(renderer);
@@ -55,7 +56,14 @@ public class LocationsList extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                if(locationsJList.getSelectedValue() != null) {
+                    Location locationTmp = locationsListe.get(locationsJList.getSelectedIndex());
 
+                    JFrame main = new AfficheLocation(locationTmp);
+                    setVisible(false);
+                    main.setVisible(true);
+
+                }
             }
         });
 
@@ -78,10 +86,22 @@ public class LocationsList extends JFrame {
             strBuilder = new StringBuilder("");
             locationTmp = listeLocations.get(cpt);
 
+            boolean isActive = locationTmp.isEnLocation();
+            String active;
+
+            if(isActive)
+            {
+                active = "Actif: Oui";
+            }
+            else
+            {
+                active = "Actif: Non";
+            }
+
             strBuilder.append("<html><br>");
-            strBuilder.append("Référence n°: " + locationTmp.getReference() + " " + this.space + "  " + locationTmp.getClient().getNom() + " " + locationTmp.getClient().getPrenom()+ this.space + "  Montant: " + locationTmp.getMontant());
+            strBuilder.append("Référence n°: " + locationTmp.getReference() + " " + this.space + "  " + locationTmp.getClient().getNom() + " " + locationTmp.getClient().getPrenom()+ this.space + "  Montant: " + locationTmp.getMontant()+ this.space + active + this.space);
             strBuilder.append("<br>");
-            strBuilder.append("Date début: " + locationTmp.getDateDebut() + " " + this.space + "  Date fin: " + locationTmp.getDateFin() );
+            strBuilder.append("Date début: " + locationTmp.getDateDebut() + " " + this.space + "  Date fin: " + locationTmp.getDateFin() + this.space);
             strBuilder.append("<br><br></html>");
             locations[cpt] = strBuilder.toString();
         }

@@ -40,7 +40,7 @@ public class Application{
         HashMap<Article,Integer> listeArt2 = new HashMap<Article,Integer>();
         listeArt2.put(matelas,3);
         listeArt2.put(fauteuil,1);
-        magasin.louerArticle(c2,listeArt2,new Date(2017,10,12), new Date(2017,12,14));
+        magasin.louerArticle(c1,listeArt2,new Date(2017,10,12), new Date(2017,12,14));
 
         System.out.println("### Location par c2 d'un lit médicalisé (génère une erreur) et d'un matelas ###");
         HashMap<Article,Integer> listeArtC2 = new HashMap<Article, Integer>();
@@ -48,13 +48,14 @@ public class Application{
         listeArtC2.put(matelas,1);
         magasin.louerArticle(c2,listeArtC2,new Date(2017,10,10), new Date(2017,10,12));
 
+
         System.out.println("### Récupération et affichage des locations en cours de c1 : ###");
-        for (Location location: magasin.getLocClient(c1)) {
+        for (Location location: magasin.getLocClient(c1, false)) {
             System.out.println(location);
         }
 
         System.out.println("### Restitution par c1 de sa location et écriture dans le fichier de novembre 2017 ###");
-        Location loc = magasin.getLocClient(c1).getFirst();
+        Location loc = magasin.getLocClient(c1, false).getFirst();
         magasin.restituerLocation(c1,loc);
 
         System.out.println("### Trie des articles par référence : ###");

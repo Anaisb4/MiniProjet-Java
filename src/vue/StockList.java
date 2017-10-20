@@ -93,7 +93,7 @@ public class StockList extends JFrame {
             strBuilder.append("<html><br>");
             strBuilder.append("Article n°: " + stockTmp.getReference() + " " + this.space + "  " + stockTmp.getMarque() + this.space + stockTmp.getModele());
             strBuilder.append("<br>");
-            strBuilder.append("Tel: " + stockTmp.getPrixJourLoc() + " € / Jours de location");
+            strBuilder.append("Tel: " + stockTmp.getPrixJourLoc() + " € / Jours de location" + this.space + "Stock: " + stockTmp.getNbStock());
             strBuilder.append("<br><br></html>");
             stocks[cpt] = strBuilder.toString();
         }

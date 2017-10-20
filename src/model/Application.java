@@ -42,12 +42,12 @@ public class Application {
         magasin.louerArticle(c2,listeArtC2,new Date(2017,10,10), new Date(2017,10,12));
 
         System.out.println("### Récupération et affichage des locations en cours de c1 : ###");
-        for (Location location: magasin.getLocClient(c1)) {
+        for (Location location: magasin.getLocClient(c1, false)) {
             System.out.println(location);
         }
 
         System.out.println("### Restitution par c1 de sa location et écriture dans le fichier de novembre 2017 ###");
-        Location loc = magasin.getLocClient(c1).getFirst();
+        Location loc = magasin.getLocClient(c1, false).getFirst();
         magasin.restituerLocation(c1,loc);
 
         System.out.println("### Trie des articles par référence : ###");
