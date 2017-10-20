@@ -47,12 +47,26 @@ public class StockList extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                JFrame main = new CreateStock();
+                setVisible(false);
+                main.setVisible(true);
+
             }
         });
 
         consulterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if(stockJList.getSelectedValue() != null)
+                {
+                    Article articleTmp = stockList.get(stockJList.getSelectedIndex());
+
+                    JFrame main = new AfficheStock(articleTmp);
+                    setVisible(false);
+                    main.setVisible(true);
+                }
+
 
             }
         });

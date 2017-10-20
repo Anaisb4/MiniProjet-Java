@@ -30,7 +30,7 @@ public class LocationsList extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         this.magasin = Main.magasin;
-        this.locationsList = this.magasin.getLocations();
+        this.locationsList = Main.magasin.getLocations();
         String[] locationsList = prepareLocationsList(this.locationsList);
         this.locationsJList = new JList(locationsList);
         ListCellRenderer renderer = new LocationsCellRenderer();
@@ -45,7 +45,9 @@ public class LocationsList extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
+                JFrame main = new CreateLocation();
+                setVisible(false);
+                main.setVisible(true);
             }
         });
 

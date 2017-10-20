@@ -55,11 +55,15 @@ public class ClientsList extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Client clientTmp = clientsList.get(clientJList.getSelectedIndex());
+                if(clientJList.getSelectedValue() != null)
+                {
+                    Client clientTmp = clientsList.get(clientJList.getSelectedIndex());
 
-                JFrame main = new AfficheClient(clientTmp);
-                setVisible(false);
-                main.setVisible(true);
+                    JFrame main = new AfficheClient(clientTmp);
+                    setVisible(false);
+                    main.setVisible(true);
+                }
+
             }
         });
 

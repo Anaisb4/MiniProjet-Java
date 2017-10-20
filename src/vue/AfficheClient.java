@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AfficheClient extends JFrame{
-    private JPanel createClientPanel;
+    private JPanel afficheClientPanel;
     private JButton retourButton;
     private JPanel buttonPane;
     private JLabel labelNClient;
@@ -27,7 +27,8 @@ public class AfficheClient extends JFrame{
         this.client = client;
         this.setTitle("Client n°:" + client.getNumClient());
         this.setLocationRelativeTo(null);
-        this.setContentPane(createClientPanel);
+        this.setResizable(false);
+        this.setContentPane(afficheClientPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
 
