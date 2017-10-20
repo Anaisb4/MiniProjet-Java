@@ -1,7 +1,5 @@
 package model;
 
-import com.sun.deploy.config.WebStartConfig;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;

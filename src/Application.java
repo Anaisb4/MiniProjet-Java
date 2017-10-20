@@ -92,13 +92,8 @@ public class Application{
         System.out.println("### Calcul du montant total des recettes du magasin sur Octobre 2017 ###");
         System.out.println("Recettes totales 11/2017 : "+magasin.calcMensuel(10,2017));
 
-       /* Magasin magasin = new Magasin();
 
-        magasin.ajouterClient(new Client("156451213854", "FABIEN", "Henri", "0619506806", "fabienherny@gmail.com"));
-        magasin.ajouterClient(new Client("515465121354", "DUPOND", "Patrick", "0615606806", "dupondpatrick@gmail.com"));
-        magasin.ajouterClient(new Client("898554632135", "THAIM", "Boubou", "0619506980", "thaimbobou@gmail.com"));
-        */
-
+        //Commenter les lignes suivantes pour désactiver l'IHM
 
         System.setProperty(
                 "Quaqua.tabLayoutPolicy","wrap"
@@ -115,10 +110,7 @@ public class Application{
              e.printStackTrace();
         }
 
-        Main myForm = new Main(magasin);
-
-
-
+        new Main(magasin);
 
     }
 }
