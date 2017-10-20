@@ -27,7 +27,7 @@ public class CreateClient extends JFrame{
     public CreateClient()
     {
         this.setTitle("Création client");
-        this.setLocationRelativeTo(null);
+        setLocationRelativeTo(this.getParent());
         this.setResizable(false);
         this.setContentPane(createClientPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

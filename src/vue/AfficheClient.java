@@ -33,11 +33,6 @@ public class AfficheClient extends JFrame{
     {
         this.client = client;
         this.setTitle("Client n°:" + client.getNumClient());
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setContentPane(afficheClientPanel);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 
         this.textFieldNClient.setText(this.client.getNumClient());
         this.textFieldNom.setText(this.client.getNom());
@@ -61,8 +56,12 @@ public class AfficheClient extends JFrame{
         }
 
         strBuilder.append("</html>");
-
         labelListLocationClient.setText(strBuilder.toString());
+
+        this.setContentPane(afficheClientPanel);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(this.getParent());
+        this.setResizable(false);
 
         pack();
 

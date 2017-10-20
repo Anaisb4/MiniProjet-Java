@@ -1,5 +1,6 @@
 package vue;
 
+import model.Client;
 import model.Magasin;
 import model.Article;
 
@@ -30,9 +31,26 @@ public class StockList extends JFrame {
         super("Stock List");
         setContentPane(stockListPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(this.getParent());
         this.magasin = Main.magasin;
         this.stockList = this.magasin.getListe_article();
+
+        DefaultListModel modelList= new DefaultListModel();
+        this.stockJList.setModel(modelList);
+        StringBuilder strBuilder;
+        for(Article article: stockList){
+            strBuilder = new StringBuilder("");
+            strBuilder.append("<html><br>");
+            strBuilder.append(this.space +"Article n°: " + article.getReference() + " " + this.space + "  " + article.getMarque() + this.space + article.getModele());
+            strBuilder.append("<br>");
+            strBuilder.append(this.space + "Tel: " + article.getPrixJourLoc() + " € / Jours de location" + this.space + "Stock: " + article.getNbStock());
+            strBuilder.append("<br><br></html>");
+            modelList.addElement(strBuilder.toString());
+        }
+
+
+        this.stockJList.setVisibleRowCount(5);
+        /*
         String[] stockSList = prepareStockList(this.stockList);
         this.stockJList = new JList(stockSList);
         ListCellRenderer renderer = new StockCellRenderer();
@@ -41,6 +59,7 @@ public class StockList extends JFrame {
         this.pane = new JScrollPane(this.stockJList);
         add(pane, BorderLayout.CENTER);
         add(buttonPane, BorderLayout.SOUTH);
+        */
         pack();
 
         nouveauButton.addActionListener(new ActionListener() {

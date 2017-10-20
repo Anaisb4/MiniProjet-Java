@@ -60,8 +60,8 @@ public class CreateStock extends JFrame{
         this.comboBoxType.addItem("SouleveMalades");
         this.comboBoxType.addItem("TableAlite");
 
-        this.setTitle("Création client");
-        this.setLocationRelativeTo(null);
+        this.setTitle("Création Article");
+        setLocationRelativeTo(this.getParent());
         this.setResizable(false);
         this.setContentPane(createStockPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

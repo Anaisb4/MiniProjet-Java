@@ -1,5 +1,6 @@
 package vue;
 
+import model.Article;
 import model.Magasin;
 import model.Client;
 
@@ -29,17 +30,23 @@ public class ClientsList extends JFrame {
         super("Clients List");
         setContentPane(clientsListPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(this.getParent());
         this.magasin = Main.magasin;
         this.clientsList = this.magasin.getListeClients();
-        String[] clientList = prepareClientList(this.clientsList);
-        this.clientJList = new JList(clientList);
-        ListCellRenderer renderer = new ClientCellRenderer();
-        this.clientJList.setCellRenderer(renderer);
         this.clientJList.setVisibleRowCount(5);
-        this.pane = new JScrollPane(this.clientJList);
-        add(pane, BorderLayout.CENTER);
-        add(buttonPane, BorderLayout.SOUTH);
+        DefaultListModel modelList= new DefaultListModel();
+        this.clientJList.setModel(modelList);
+        StringBuilder strBuilder;
+        for(Client client: clientsList){
+            strBuilder = new StringBuilder("");
+            strBuilder.append("<html><br>");
+            strBuilder.append(this.space + "Client n°: " + client.getNumClient() + " " + this.space + "  " + client.getNom() + " " + client.getPrenom() + this.space);
+            strBuilder.append("<br>");
+            strBuilder.append(this.space + "Tel: " + client.getTelephone() + " " + this.space + "  Mail: " + client.geteMail() + this.space);
+            strBuilder.append("<br><br></html>");
+            modelList.addElement(strBuilder.toString());
+        }
+
         pack();
 
         nouveauButton.addActionListener(new ActionListener() {
@@ -75,50 +82,5 @@ public class ClientsList extends JFrame {
                 main.setVisible(true);
             }
         });
-    }
-
-    public String[] prepareClientList(LinkedList<Client> listeClients) {
-        String clients[] = new String[listeClients.size()];
-        Client clientTmp;
-        StringBuilder strBuilder;
-
-        for (int cpt = 0; cpt < listeClients.size(); cpt++) {
-            strBuilder = new StringBuilder("");
-            clientTmp = listeClients.get(cpt);
-
-            strBuilder.append("<html><br>");
-            strBuilder.append("Client n°: " + clientTmp.getNumClient() + " " + this.space + "  " + clientTmp.getNom() + " " + clientTmp.getPrenom());
-            strBuilder.append("<br>");
-            strBuilder.append("Tel: " + clientTmp.getTelephone() + " " + this.space + "  Mail: " + clientTmp.geteMail());
-            strBuilder.append("<br><br></html>");
-            clients[cpt] = strBuilder.toString();
-        }
-
-        return clients;
-    }
-}
-
-class ClientCellRenderer extends JLabel implements ListCellRenderer {
-
-    private static final Color HIGHLIGHT_COLOR = new Color(0, 0, 128);
-
-    public ClientCellRenderer() {
-        setOpaque(true);
-        setIconTextGap(12);
-    }
-
-    public Component getListCellRendererComponent(JList list, Object value, int index,
-                                                  boolean isSelected, boolean cellHasFocus) {
-        String entry = (String) value;
-
-        setText(entry);
-        if (isSelected) {
-            setBackground(HIGHLIGHT_COLOR);
-            setForeground(Color.white);
-        } else {
-            setBackground(Color.white);
-            setForeground(Color.black);
-        }
-        return this;
     }
 }

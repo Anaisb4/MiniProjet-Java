@@ -135,7 +135,7 @@
               <vspacer id="cb8bd">
                 <constraints>
                   <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
-                    <minimum-size width="-1" height="25"/>
+                    <minimum-size width="-1" height="10"/>
                   </grid>
                 </constraints>
               </vspacer>
@@ -176,7 +176,9 @@
               </vspacer>
               <vspacer id="5b61b">
                 <constraints>
-                  <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                  <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                    <minimum-size width="-1" height="25"/>
+                  </grid>
                 </constraints>
               </vspacer>
               <component id="b3539" class="javax.swing.JLabel">

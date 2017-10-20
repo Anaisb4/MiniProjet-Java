@@ -1,6 +1,7 @@
 import model.*;
 import vue.Main;
 
+import javax.swing.*;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,11 +37,17 @@ public class Application{
         listeArt.put(fauteuil,1);
         magasin.louerArticle(c1,listeArt,new Date(2017,10,10), new Date(2017,10,12));
 
+        System.out.println("### Location par c1 de tous le stock de lit médicalisé et d'un fauteuil ###");
+        HashMap<Article,Integer> listeArt3 = new HashMap<Article,Integer>();
+        listeArt.put(lit,3);
+        listeArt.put(fauteuil,1);
+        magasin.louerArticle(c1,listeArt3,new Date(2017,11,10), new Date(2020,10,12));
+
         System.out.println("### Location par c2 de trois matelas et d'un fauteuil ###");
         HashMap<Article,Integer> listeArt2 = new HashMap<Article,Integer>();
         listeArt2.put(matelas,3);
         listeArt2.put(fauteuil,1);
-        magasin.louerArticle(c1,listeArt2,new Date(2017,10,12), new Date(2017,12,14));
+        magasin.louerArticle(c2,listeArt2,new Date(2017,10,12), new Date(2017,12,14));
 
         System.out.println("### Location par c2 d'un lit médicalisé (génère une erreur) et d'un matelas ###");
         HashMap<Article,Integer> listeArtC2 = new HashMap<Article, Integer>();
@@ -91,6 +98,22 @@ public class Application{
         magasin.ajouterClient(new Client("515465121354", "DUPOND", "Patrick", "0615606806", "dupondpatrick@gmail.com"));
         magasin.ajouterClient(new Client("898554632135", "THAIM", "Boubou", "0619506980", "thaimbobou@gmail.com"));
         */
+
+
+        System.setProperty(
+                "Quaqua.tabLayoutPolicy","wrap"
+        );
+        // set the Quaqua Look and Feel in the UIManager
+        try {
+            UIManager.setLookAndFeel(
+                    ch.randelshofer.quaqua.QuaquaManager.getLookAndFeel()
+              );
+            // set UI manager properties here that affect Quaqua
+
+        } catch (Exception e) {
+            // take an appropriate action here
+             e.printStackTrace();
+        }
 
         Main myForm = new Main(magasin);
 

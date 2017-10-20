@@ -40,7 +40,7 @@ public class CreateLocation extends JFrame{
         this.mapArticles = new HashMap<>();
 
         this.setTitle("Création Location");
-        this.setLocationRelativeTo(null);
+        setLocationRelativeTo(this.getParent());
 
         this.setContentPane(createLocationPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -1,6 +1,7 @@
 package vue;
 
 import model.Article;
+import model.Client;
 import model.Magasin;
 import model.Location;
 
@@ -29,17 +30,34 @@ public class LocationsList extends JFrame {
         super("Locations List");
         setContentPane(locationsListPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(this.getParent());
         this.magasin = Main.magasin;
         this.locationsListe = Main.magasin.getLocations();
-        String[] locationsList = prepareLocationsList(this.locationsListe);
-        this.locationsJList = new JList(locationsList);
-        ListCellRenderer renderer = new LocationsCellRenderer();
-        this.locationsJList.setCellRenderer(renderer);
-        this.locationsJList.setVisibleRowCount(5);
-        this.pane = new JScrollPane(this.locationsJList);
-        add(pane, BorderLayout.CENTER);
-        add(buttonPane, BorderLayout.SOUTH);
+        DefaultListModel modelList= new DefaultListModel();
+        this.locationsJList.setModel(modelList);
+
+        for(Location location: locationsListe){
+
+            StringBuilder strBuilder = new StringBuilder("");
+            boolean isActive = location.isEnLocation();
+            String active;
+
+            if(isActive)
+            {
+                active = "Actif: Oui";
+            }
+            else
+            {
+                active = "Actif: Non";
+            }
+
+            strBuilder.append("<html><br>");
+            strBuilder.append(this.space + "Référence n°: " + location.getReference() + " " + this.space + "  " + location.getClient().getNom() + " " + location.getClient().getPrenom()+ this.space + "  Montant: " + location.getMontant()+ this.space + active + this.space);
+            strBuilder.append("<br>");
+            strBuilder.append(this.space + "Date début: " + location.getDateDebut() + " " + this.space + "  Date fin: " + location.getDateFin() + this.space);
+            strBuilder.append("<br><br></html>");
+            modelList.addElement(strBuilder.toString());
+        }
         pack();
 
         nouveauButton.addActionListener(new ActionListener() {
@@ -77,60 +95,4 @@ public class LocationsList extends JFrame {
         });
     }
 
-    public String[] prepareLocationsList(LinkedList<Location> listeLocations) {
-        String locations[] = new String[listeLocations.size()];
-        Location locationTmp;
-        StringBuilder strBuilder;
-
-        for (int cpt = 0; cpt < listeLocations.size(); cpt++) {
-            strBuilder = new StringBuilder("");
-            locationTmp = listeLocations.get(cpt);
-
-            boolean isActive = locationTmp.isEnLocation();
-            String active;
-
-            if(isActive)
-            {
-                active = "Actif: Oui";
-            }
-            else
-            {
-                active = "Actif: Non";
-            }
-
-            strBuilder.append("<html><br>");
-            strBuilder.append("Référence n°: " + locationTmp.getReference() + " " + this.space + "  " + locationTmp.getClient().getNom() + " " + locationTmp.getClient().getPrenom()+ this.space + "  Montant: " + locationTmp.getMontant()+ this.space + active + this.space);
-            strBuilder.append("<br>");
-            strBuilder.append("Date début: " + locationTmp.getDateDebut() + " " + this.space + "  Date fin: " + locationTmp.getDateFin() + this.space);
-            strBuilder.append("<br><br></html>");
-            locations[cpt] = strBuilder.toString();
-        }
-
-        return locations;
-    }
-}
-
-class LocationsCellRenderer extends JLabel implements ListCellRenderer {
-
-    private static final Color HIGHLIGHT_COLOR = new Color(0, 0, 128);
-
-    public LocationsCellRenderer() {
-        setOpaque(true);
-        setIconTextGap(12);
-    }
-
-    public Component getListCellRendererComponent(JList list, Object value, int index,
-                                                  boolean isSelected, boolean cellHasFocus) {
-        String entry = (String) value;
-
-        setText(entry);
-        if (isSelected) {
-            setBackground(HIGHLIGHT_COLOR);
-            setForeground(Color.white);
-        } else {
-            setBackground(Color.white);
-            setForeground(Color.black);
-        }
-        return this;
-    }
 }

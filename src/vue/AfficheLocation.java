@@ -44,7 +44,6 @@ public class AfficheLocation extends JFrame{
         this.textFieldClient.setText(client.getNom() + " " + client.getPrenom());
 
         HashMap<Article, Integer> mapArticles = this.location.getListeArticle();
-
         StringBuilder strBuilder = new StringBuilder("");
 
         strBuilder.append("<html>");
@@ -58,12 +57,13 @@ public class AfficheLocation extends JFrame{
         strBuilder.append("</html>");
 
         this.labelArticlesList.setText(strBuilder.toString());
+        this.setTitle("Location n°:" + location.getReference());
 
         setContentPane(afficheLocationPanel);
-        this.setTitle("Location n°:" + location.getReference());
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(this.getParent());
+        this.setResizable(false);
+
         pack();
 
         restituerButton.addActionListener(new ActionListener() {

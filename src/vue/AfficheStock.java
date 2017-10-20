@@ -51,14 +51,10 @@ public class AfficheStock extends JFrame{
 
     public AfficheStock(Article article)
     {
-
+        super("Article N°:" + article.getReference());
         this.article = article;
         this.setTitle("Client n°:" + article.getReference());
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setContentPane(afficheStockPanel);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
+
 
         this.textFieldRef.setText(article.getReference());
         this.textFieldMarque.setText(article.getMarque());
@@ -124,6 +120,12 @@ public class AfficheStock extends JFrame{
                 break;
 
         }
+
+        setLocationRelativeTo(this.getParent());
+        this.setResizable(false);
+        this.setContentPane(afficheStockPanel);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
 
         retourButton.addActionListener(new ActionListener() {
             @Override
